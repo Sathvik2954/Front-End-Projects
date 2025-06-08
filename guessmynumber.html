@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Guess the Number</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                text-align: center;
+                background-color: #f4f4f4;
+                margin: 50px;
+            }
+            h1 {
+                color: #333;
+            }
+            h2 {
+                color: #666;
+            }
+            p, ol {
+                font-size: 18px;
+            }
+            input {
+                padding: 12px;
+                font-size: 18px;
+                margin: 12px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                width: 225px;
+            }
+            button {
+                padding: 10px 15px;
+                font-size: 16px;
+                background-color: #28a745;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            button:hover {
+                background-color: #218838;
+            }
+            #output {
+                font-size: 20px;
+                font-weight: bold;
+                margin-top: 20px;
+                color: #d9534f;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Guess My Number</h1>
+        <h2>Guess a random Number</h2>
+        <p>From 1 to 100 guess a random number <button id="newTargetBtn"> New Target</button></p>
+        <input id="guessInput" placeholder="Give a No between 1 to 100"> <button id="guessBtn">Guess</button>
+        <p id="output">Make your guess.</p>
+        <h2>Instructions</h2>
+        <ol>
+            <li>Enter the range of numbers you want the target number to be between, and press New Target</li>
+            <li>Enter your guess</li>
+            <li>See if your guess is too high or too low</li>
+            <li>Change your guess</li>
+            <li>The website will tell you when you are right, and how many guesses you had</li>
+        </ol>
+        <script>
+            let targetNumber = 0;
+            let guessCount = 0;
+            function setNewTarget() {
+                targetNumber = Math.floor(Math.random() * 100) + 1;
+                guessCount = 0;
+                document.getElementById('output').textContent = "Make your guess.";
+                document.body.style.backgroundColor = "#f4f4f4"; 
+            }
+            function handleGuess() {
+                const userGuess = parseInt(document.getElementById('guessInput').value);
+                guessCount++;
+                if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+                    document.getElementById('output').textContent = "Please enter a number between 1 and 100.";
+                    return;
+                }
+            if (userGuess < targetNumber) {
+                document.getElementById('output').textContent = `My number is greater! Try again. Attempts: ${guessCount}`;
+            } else if (userGuess > targetNumber) {
+                document.getElementById('output').textContent = `My number is less! Try again. Attempts: ${guessCount}`;
+            } else {
+                document.getElementById('output').textContent = `Well done! It took you ${guessCount} attempts to guess this number.`;
+                document.body.style.backgroundColor = "#AAFF00"; 
+            }
+        }
+        document.getElementById('newTargetBtn').addEventListener('click', setNewTarget);
+        document.getElementById('guessBtn').addEventListener('click', handleGuess);
+        window.onload = setNewTarget;
+        </script>
+</body>
+</html>
+
